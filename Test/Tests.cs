@@ -143,12 +143,24 @@ namespace Test
         
         public void Ascending_Sort_has_same_contents_as_new_deck()
         {
-            
+            var myDeck = new Deck();
+            List<Card> cards = myDeck.GetCards();
+            myDeck.SortAscending();
+            List<Card> sorted = myDeck.GetCards();
+            //'All' tells us if all items meet condition in parameters
+            Assert.True(cards.All(sorted.Contains));
+            Assert.True(sorted.All(cards.Contains));
         }
         
         public void Ascending_Sort_has_different_order_than_shuffle()
         {
-            
+            var myDeck = new Deck();
+            List<Card> cards = myDeck.GetCards();
+            myDeck.Shuffle();
+            List<Card> shuffled1 = myDeck.GetCards();
+            myDeck.SortAscending();
+            List<Card> sorted = myDeck.GetCards();
+            Assert.False(shuffled1.SequenceEqual(sorted));
         }
         
         //*****************END TEST SORT BY ASCENDING******************
