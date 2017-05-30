@@ -22,7 +22,7 @@ namespace DeckOfCards
                 var value = 2;
                 foreach (Rank r in Enum.GetValues(typeof(Rank))){
                     var label = r + " of " + s;
-                    var newCard = new Card(label,value);
+                    var newCard = new Card(label,value, s.ToString(), r.ToString());
                     deck.Add(newCard);
                     value++;
                 }
@@ -31,19 +31,23 @@ namespace DeckOfCards
         //https://stackoverflow.com/questions/3309188/how-to-sort-a-listt-by-a-property-in-the-object
         public void SortAscendingTwo()
         {
-            this.deck.Sort((x,y) => x.getValue().CompareTo(y.getValue()));
+            this.deck.Sort((x,y) => x.GetValue().CompareTo(y.GetValue()));
         }
 
         public void SortAscending()
         {
-            this.deck = this.deck.OrderBy(card => card.getValue()).ToList();
+            this.deck = this.deck.OrderBy(card => card.GetValue()).ToList();
         }
 
         //https://stackoverflow.com/questions/5383498/shuffle-rearrange-randomly-a-liststring
         public void Shuffle()
         {
-            //this.deck.Shuffle();
             this.deck = this.deck.OrderBy(item => rnd.Next()).ToList();
+        }
+
+        public List<Card> GetCards()
+        {
+            return this.deck;
         }
 
         //for testing and debugging purposes
@@ -53,17 +57,19 @@ namespace DeckOfCards
                    '}';
         }
 
+        public void Print()
+        {
+            foreach (var card in this.deck)
+            {
+                System.Console.WriteLine(card.GetLabel());
+            }
+        }
+        
         public int GetCount()
         {
             return this.deck.Count;
         }
 
-        public void Print()
-        {
-            foreach (var card in this.deck)
-            {
-                System.Console.WriteLine(card.getLabel());
-            }
-        }
+
     }
 }

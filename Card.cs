@@ -4,10 +4,14 @@ namespace DeckOfCards
     {
         private string label;
         private int value;
+        private string suit;
+        private string rank;
 
-        public Card(string myLabel, int myValue){
+        public Card(string myLabel, int myValue, string mySuit,string myRank){
             label = myLabel;
             value = myValue;
+            suit = mySuit;
+            rank = myRank;
         }
 
         //for testing and debugging purposes
@@ -18,12 +22,17 @@ namespace DeckOfCards
                    '}';
         }
 
-        public string getLabel() {
-            return label;
+        public string GetLabel() {
+            return this.label;
         }
 
-        public int getValue() {
-            return value;
+        public int GetValue() {
+            return this.value;
+        }
+
+        public string GetSuit()
+        {
+            return this.suit;
         }
     }
 }
