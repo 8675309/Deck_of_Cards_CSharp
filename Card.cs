@@ -2,10 +2,10 @@ namespace DeckOfCards
 {
     public class Card
     {
-        private string label;
-        private int value;
-        private string suit;
-        private string rank;
+        private readonly string label;
+        private readonly int value;
+        private readonly string suit;
+        private readonly string rank;
 
         public Card(string myLabel, int myValue, string mySuit,string myRank){
             label = myLabel;
@@ -33,6 +33,11 @@ namespace DeckOfCards
         public string GetSuit()
         {
             return this.suit;
+        }
+        
+        public string GetRank()
+        {
+            return this.rank;
         }
     }
 }

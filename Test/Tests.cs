@@ -73,14 +73,18 @@ namespace Test
             int valueCount = cards.Count(x => x.GetValue() == 14);
             Assert.AreEqual(4,valueCount);
         }
-        
+                
         [Test]
         public void Create_Deck_twos_have_value_2()
         {
             var myDeck = new Deck();
             List<Card> cards = myDeck.GetCards();
-            int valueCount = cards.Count(x => x.GetValue() == 14);
-            Assert.AreEqual(4,valueCount);
+            List<Card> twos = cards.FindAll(x => x.GetRank().ToString() == "two");
+            Assert.AreEqual(4,twos.Count);
+            foreach (var card in twos)
+            {
+              Assert.AreEqual(2,card.GetValue());  
+            }   
         }
         
         [Test]
@@ -88,29 +92,75 @@ namespace Test
         {
             var myDeck = new Deck();
             List<Card> cards = myDeck.GetCards();
-            int valueCount = cards.Count(x => x.GetValue() == 14);
-            Assert.AreEqual(4,valueCount);
+            List<Card> aces = cards.FindAll(x => x.GetRank().ToString() == "ace");
+            Assert.AreEqual(4,aces.Count);
+            foreach (var card in aces)
+            {
+                Assert.AreEqual(14,card.GetValue());  
+            }   
         }
+        //*****************END TEST CREATE DECK******************
         
         //*****************TEST SHUFFLE******************
         [Test]
-        public void Shuffle_Deck_does_not_equal_new_deck()
+        public void Shuffle_Deck_has_different_order_from_new_deck()
         {
-
- 
+            var myDeck = new Deck();
+            List<Card> cards = myDeck.GetCards();
+            myDeck.Shuffle();
+            List<Card> shuffled = myDeck.GetCards();
+            Assert.False(cards.SequenceEqual(shuffled));
         }
         
-        public void Shuffle_Deck_does_not_equal_previous_shuffle()
+        [Test]
+        public void Shuffle_Deck_does_not_equal_order_from_previous_shuffle()
         {
+            var myDeck = new Deck();
+            List<Card> cards = myDeck.GetCards();
+            myDeck.Shuffle();
+            List<Card> shuffled1 = myDeck.GetCards();
+            myDeck.Shuffle();
+            List<Card> shuffled2 = myDeck.GetCards();
+            Assert.False(shuffled1.SequenceEqual(shuffled2));
+        }
 
- 
+        //https://stackoverflow.com/questions/22173762/check-if-two-lists-are-equal
+        [Test]
+        public void Shuffle_Deck_has_same_contents_as_new_deck()
+        {
+            var myDeck = new Deck();
+            List<Card> cards = myDeck.GetCards();
+            myDeck.Shuffle();
+            List<Card> shuffled = myDeck.GetCards();
+            //'All' tells us if all items meet condition in parameters
+            Assert.True(cards.All(shuffled.Contains));
+            Assert.True(shuffled.All(cards.Contains));
         }
         
-        
-        
-        
+        //*****************END TEST SHUFFLE******************
         
         //*****************TEST SORT BY ASCENDING******************
+        
+        public void Ascending_Sort_has_same_contents_as_new_deck()
+        {
+            
+        }
+        
+        public void Ascending_Sort_has_different_order_than_shuffle()
+        {
+            
+        }
+        
+        //*****************END TEST SORT BY ASCENDING******************
+        
+        
+        
+        
+      //*****************TEST GET INPUT*****************************
+      //  https://stackoverflow.com/questions/3161341/c-sharp-unit-test-for-a-method-which-calls-console-readline
+        
+        
+      //*****************TEST EXECUTE OPTION************************
         
     }
 }

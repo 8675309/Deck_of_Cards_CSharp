@@ -29,11 +29,6 @@ namespace DeckOfCards
             }
         }
         //https://stackoverflow.com/questions/3309188/how-to-sort-a-listt-by-a-property-in-the-object
-        public void SortAscendingTwo()
-        {
-            this.deck.Sort((x,y) => x.GetValue().CompareTo(y.GetValue()));
-        }
-
         public void SortAscending()
         {
             this.deck = this.deck.OrderBy(card => card.GetValue()).ToList();

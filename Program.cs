@@ -13,7 +13,6 @@ namespace DeckOfCards
             myDeck.Print();
             ExecuteOption(option,myDeck);
             myDeck.Print();
-
         }
 
         public static void ExecuteOption(string myOption, Deck myDeck)
@@ -69,7 +68,6 @@ namespace DeckOfCards
                 }
 
             }
-           // Console.WriteLine(myOption);
             
             return myOption;
         }   
