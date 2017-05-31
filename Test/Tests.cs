@@ -192,5 +192,34 @@ namespace Test
             List<Card> shuffled2 = myDeck.GetCards();
             Assert.False(shuffled.SequenceEqual(shuffled2));
         }
+        
+        //***************TEST VALIDATE OPTION***************
+        [Test]
+        public void Option_a_valid_is_true()
+        {
+            bool valid = ProgramDriver.ValidateOption("a");
+            Assert.True(valid);
+        }
+        
+        [Test]
+        public void Option_b_valid_is_true()
+        {
+            bool valid = ProgramDriver.ValidateOption("b");
+            Assert.True(valid);
+        }
+        
+        [Test]
+        public void Option_q_valid_is_true()
+        {
+            bool valid = ProgramDriver.ValidateOption("q");
+            Assert.True(valid);
+        }
+        
+        [Test]
+        public void Option_f_valid_is_false()
+        {
+            bool valid = ProgramDriver.ValidateOption("f");
+            Assert.False(valid);
+        }
     }
 }
