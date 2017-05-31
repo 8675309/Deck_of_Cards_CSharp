@@ -5,6 +5,7 @@ using DeckOfCards;
 using System.Linq;
 
 
+
 namespace Test
 {    
     [TestFixture]
@@ -135,44 +136,61 @@ namespace Test
             //'All' tells us if all items meet condition in parameters
             Assert.True(cards.All(shuffled.Contains));
             Assert.True(shuffled.All(cards.Contains));
+            Assert.AreEqual(cards.Count,shuffled.Count);
         }
         
         //*****************END TEST SHUFFLE******************
         
         //*****************TEST SORT BY ASCENDING******************
-        
-        public void Ascending_Sort_has_same_contents_as_new_deck()
+        [Test]
+        public void Ascending_Sort_does_not_change_contents()
         {
             var myDeck = new Deck();
             List<Card> cards = myDeck.GetCards();
             myDeck.SortAscending();
             List<Card> sorted = myDeck.GetCards();
-            //'All' tells us if all items meet condition in parameters
             Assert.True(cards.All(sorted.Contains));
             Assert.True(sorted.All(cards.Contains));
+            Assert.AreEqual(cards.Count,sorted.Count);
         }
         
-        public void Ascending_Sort_has_different_order_than_shuffle()
+        [Test]
+        public void Sort_By_Ascending()
         {
             var myDeck = new Deck();
-            List<Card> cards = myDeck.GetCards();
             myDeck.Shuffle();
-            List<Card> shuffled1 = myDeck.GetCards();
+            List<Card> shuffled = myDeck.GetCards();
             myDeck.SortAscending();
             List<Card> sorted = myDeck.GetCards();
-            Assert.False(shuffled1.SequenceEqual(sorted));
+            Assert.False(shuffled.SequenceEqual(sorted));
+            var values = sorted.Select(x => x.GetValue()).ToList();
+            //http://www.nunit.org/index.php?p=collectionConstraints&r=2.5.8
+            Assert.That(values, Is.Ordered);
         }
         
-        //*****************END TEST SORT BY ASCENDING******************
+        //***************TEST EXECUTE OPTION***************
+        [Test]
+        public void Option_a_sorts_by_ascending()
+        {
+            var myDeck = new Deck();
+            myDeck.Shuffle();
+            List<Card> shuffled = myDeck.GetCards();
+            ProgramDriver.ExecuteOption("a", myDeck);
+            List<Card> sorted = myDeck.GetCards();
+            Assert.False(shuffled.SequenceEqual(sorted));
+            var values = sorted.Select(x => x.GetValue()).ToList();
+            Assert.That(values, Is.Ordered);
+        }
         
-        
-        
-        
-      //*****************TEST GET INPUT*****************************
-      //  https://stackoverflow.com/questions/3161341/c-sharp-unit-test-for-a-method-which-calls-console-readline
-        
-        
-      //*****************TEST EXECUTE OPTION************************
-        
+        [Test]
+        public void Option_b_shuffles()
+        {
+            var myDeck = new Deck();
+            myDeck.Shuffle();
+            List<Card> shuffled = myDeck.GetCards();
+            ProgramDriver.ExecuteOption("b", myDeck);
+            List<Card> shuffled2 = myDeck.GetCards();
+            Assert.False(shuffled.SequenceEqual(shuffled2));
+        }
     }
 }
